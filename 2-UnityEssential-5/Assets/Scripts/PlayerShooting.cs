@@ -91,7 +91,7 @@ public class PlayerShooting : MonoBehaviour
         {
             if (shootHit.collider.GetComponentInParent<HealthHelper>())
             {
-                shootHit.collider.GetComponentInParent<HealthHelper>().GetDamage(10,)
+                //shootHit.collider.GetComponentInParent<HealthHelper>().GetDamage(10,)
             }
 
             else if (shootHit.collider.GetComponent<Rigidbody>())
