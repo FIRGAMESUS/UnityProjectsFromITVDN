@@ -21,6 +21,8 @@ public class PlayerShooting : MonoBehaviour
     public Light faceLight;
     float effectsDisplayTime = 0.2f;
 
+    HealthHelper _parent;
+
     void Awake()
     {
         // Берем индекс слоя Shootable
@@ -31,6 +33,7 @@ public class PlayerShooting : MonoBehaviour
         gunAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
 
+        _parent = GetComponentInParent<HealthHelper>();
       
         //faceLight = GetComponentInChildren<Light> ();
     }
@@ -91,9 +94,9 @@ public class PlayerShooting : MonoBehaviour
         {
             if (shootHit.collider.GetComponentInParent<HealthHelper>())
             {
-                //shootHit.collider.GetComponentInParent<HealthHelper>().GetDamage(10,)
+                shootHit.collider.GetComponentInParent<HealthHelper>().GetDamage(Random.Range(10,20), _parent);
             }
-
+            
             else if (shootHit.collider.GetComponent<Rigidbody>())
             {
                 shootHit.collider.GetComponent<Rigidbody>().AddForce(transform.forward * 300);

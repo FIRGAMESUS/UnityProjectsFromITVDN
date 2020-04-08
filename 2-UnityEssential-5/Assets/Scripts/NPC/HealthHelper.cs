@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class HealthHelper : MonoBehaviour {
 
@@ -9,6 +10,16 @@ public class HealthHelper : MonoBehaviour {
 	public bool isDynamicHealthBarCreate = true;
 
 	UIHealthBarHelper _UIHealthBarHelper;
+
+	private bool Dead;
+
+	public bool MyProperty
+	{
+		get { return Dead; }
+		set { Dead = value; }
+	}
+
+	public int Kills { get; private set; }
 
 	void Start () {
 		if (isDynamicHealthBarCreate)
@@ -23,4 +34,19 @@ public class HealthHelper : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void GetDamage(int damage, HealthHelper killer)
+    {
+		if (Dead) return;
+
+		Health -= damage;
+
+		if (Health <= 0)
+		{
+			Dead = true;
+			killer.Kills += 1;
+			GetComponentInChildren<PlayerShooting>().Drop();
+			GetComponent<Animator>().SetBool("Dead", true);
+		}
+    }
 }
